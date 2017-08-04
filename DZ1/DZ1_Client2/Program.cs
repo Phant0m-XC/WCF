@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using DZ1_Client2.ServiceReference1;
 
-namespace DZ1_Client1
+namespace DZ1_Client2
 {
-    //Обычный клиент
+    //Proxy клиент
     class Program
     {
         static void Main(string[] args)
         {
-            ChannelFactory<IMyDiskInfo> factory = new ChannelFactory<IMyDiskInfo>(new WSHttpBinding(),
-                new EndpointAddress("http://localhost:80/MyDiskInfo/ep1"));
-            IMyDiskInfo channel = factory.CreateChannel();
+            MyDiskInfoClient proxy = new MyDiskInfoClient();
             int choice = -1;
             string diskName;
             bool goOn = true;
@@ -30,17 +29,16 @@ namespace DZ1_Client1
                         goOn = false;
                         break;
                     case 1:
-                        Console.WriteLine(channel.TotalSpace(diskName));
+                        Console.WriteLine(proxy.TotalSpace(diskName));
                         break;
                     case 2:
-                        Console.WriteLine(channel.FreeSpace(diskName));
+                        Console.WriteLine(proxy.FreeSpace(diskName));
                         break;
                     default:
                         Console.WriteLine("Неверный вывод");
                         break;
                 }
             } while (goOn);
-            factory.Close();
         }
     }
 }

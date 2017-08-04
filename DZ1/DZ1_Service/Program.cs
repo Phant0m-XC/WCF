@@ -13,8 +13,6 @@ namespace DZ1_Service
         static void Main(string[] args)
         {
             ServiceHost sh = new ServiceHost(typeof(MyDiskInfo));
-
-            sh.AddServiceEndpoint(typeof(IMyDiskInfo), new WSHttpBinding(), "http://localhost:80/Temporary_Listen_Addresses/");
             sh.Open();
             Console.WriteLine("Для завершения нажмите <ENTER>\n");
             Console.ReadLine();
